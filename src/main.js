@@ -12,10 +12,9 @@ Vue.config.productionTip = false
 
 Vue.use(VueMaterial)
 
+
 new Vue({
   store,
-  el: '#app',
   router,
-  components: {App},
-  template: '<App/>'
-})
+  render: h => h(App),
+}).$mount('#app')
