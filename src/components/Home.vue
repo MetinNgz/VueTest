@@ -1,6 +1,7 @@
 <template>
       <div>
         <span class="md-title">Home</span>
+          <h5>WELCOME</h5>
       </div>
 </template>
 
