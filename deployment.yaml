@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-deployment
+  labels:
+    app: todo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      containers:
+        - name: todo
+          image: metinngz/vue-todo-list:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-service
+  labels:
+    app: todo
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+  selector:
+    app: todo
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: todo-ingress
+  labels:
+    app: todo
+spec:
+  rules:
+    - host: todo.kluster.arcusx.lan
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: todo-service
+              servicePort: 8080
